@@ -1,9 +1,94 @@
-// 0 - small russia letters
-// 1 - big russia letters
-// 2 - numbers [0,9] - additionalOption = 10
-// 3 - number [1,9] - additionalOption = 10
-// 4 - big english letters
-// 5 - small english letters
+
+/*
+
+Remove white spaces from string
+
+Parameters:
+input - source string
+
+Output:
+
+output - string without white spaces
+
+*/
+char* removeSpaces(char* input) {
+
+
+	int i,j;
+
+	char *output;
+
+	output = input;
+
+	for(i = 0, j = 0; i < strlen(input); i++, j++) {
+
+		if (input[i] != ' ') {
+
+			output[j] = input[i];
+
+		} else {
+
+			j--;
+		}
+
+
+	}
+
+	output[j] = 0;
+
+	return output;
+}
+
+/*
+  
+  Substring string
+
+  Parameters:
+  input - source string
+  offset - start point
+  len - length for sub string
+  output - result string
+
+  Output:
+
+  result - sub string  
+ */
+
+char* subString(char* input, int offset, int len, char* output) {
+
+
+	int input_len = strlen(input);
+
+	if (offset + len > input_len) {
+
+		return NULL;
+
+	}
+
+	strncpy(output, input + offset, len);
+
+	return output;
+
+}
+
+/*
+
+Parameters:
+option - what do
+additionalOpetion - offset for numbers between 0 - 9, for other set 0
+
+Output:
+character
+
+Usage: 
+0 - small russian letters
+1 - big russian letters
+2 - numbers [0,9] - additionalOption = 10
+3 - numbers [1,9] - additionalOption = 10
+4 - big english letters
+5 - small english letters
+
+*/
 char generateSymbol(int option, int additionalOption) {
 
 
@@ -56,10 +141,20 @@ char generateSymbol(int option, int additionalOption) {
 
 }
 
-// hex to string
-//	char *str;
-//str = convertHexToString("\xC7\xE0\xFF\xE2\xEA\xE0 \xE2 \xE4\xE0\xED\xED\xFB\xE9 \xEC\xEE\xEC\xE5\xED\xF2 \xE7\xE0\xED\xFF\xF2\xE0 \xE4\xF0\xF3\xE3\xE8\xEC \xEF\xEE\xEB\xFC\xE7\xEE\xE2\xE0\xF2\xE5\xEB\xE5\xEC");
+/*
+Convert hex to string
 
+Parameters:
+hex - source hex string
+
+Output:
+result - string
+
+Usage:
+hex to string
+char *str;
+str = convertHexToString("\xC7\xE0\xFF\xE2\xEA\xE0 \xE2 \xE4\xE0\xED\xED\xFB\xE9 \xEC\xEE\xEC\xE5\xED\xF2 \xE7\xE0\xED\xFF\xF2\xE0 \xE4\xF0\xF3\xE3\xE8\xEC \xEF\xEE\xEB\xFC\xE7\xEE\xE2\xE0\xF2\xE5\xEB\xE5\xEC");
+*/
 
 char* convertHexToString(char* hex) {
 
@@ -93,8 +188,17 @@ char* convertHexToString(char* hex) {
 
 /*
 
-	date plus month
+	Date plus month
 
+	Parameters:
+	date - start date
+	monthPlus - count month plus to start date
+
+	Output:
+
+	result - date with offset
+
+	Usage:
 	char* date;
 
 	date = (char*)malloc(100);
@@ -242,7 +346,15 @@ char* datePlusMonth(char* date, int monthPlus) {
 
 }
 
-// check month boundaries
+/*
+	Check month boundaries
+
+	Parameters:
+	data - output array
+	month - month for check
+	day - day for check
+	year - year for check
+*/
 void checkMonth(int data[], int month, int day, int year){
 
 	if (month == 2) {
@@ -314,7 +426,15 @@ void checkMonth(int data[], int month, int day, int year){
 
 
 
-//check leap year
+/*
+	Check leap year
+
+	Parameters:
+	year - year for check
+
+	Output:
+	result - 1 true; 0 - false
+*/
 int checkLeap(int year) {
 
 	int result;
@@ -334,7 +454,17 @@ int checkLeap(int year) {
 }
 
 
-//generating random string
+/*
+
+	Generating random string
+
+	Parameters:
+	length - string's length
+	lang - language
+
+	Output:
+	result -  random string
+*/
 char* generateStr(int length, int lang) {
 
 	int i;
@@ -378,7 +508,16 @@ char* generateStr(int length, int lang) {
 	return result;
 }
 
-// number generating
+/*
+
+	Generating random number
+
+	Parameters:
+	length - number's length
+
+	Output:
+	result - random number
+*/
 char* generateNumber(int length) {
 
 	int i;
@@ -394,7 +533,16 @@ char* generateNumber(int length) {
 }
 
 
-// string to hex
+/*
+
+	Convert string to hex
+
+	Parameter:
+	name - source string
+
+	Output:
+	hexString - result hex string
+*/
 char* convertStringToHex(char* name) {
 
 	char* result;
