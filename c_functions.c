@@ -635,3 +635,72 @@ char* convertStringToHex(char* name) {
 
 	return hexString;
 }
+
+/* 
+	IndexoF implementation
+ */
+int indexOf (char* base, char* str) {
+    return indexOf_shift(base, str, 0);
+}
+
+int indexOf_shift (char* base, char* str, int startIndex) {
+    int result;
+	char* pos;
+    int baselen = strlen(base);
+
+    // str should not longer than base
+    if (strlen(str) > baselen || startIndex > baselen) {
+        result = -1;
+    } else {
+        if (startIndex < 0 ) {
+            startIndex = 0;
+        }
+        pos = (char*)strstr(base+startIndex, str);
+        if (pos == NULL) {
+            result = -1;
+        } else {
+            result = pos - base;
+        }
+    }
+    return result;
+}
+
+/*
+	Split implementaion by separator
+
+*/
+int* split_str(char* str, char* separator) {
+
+	char* tokens;
+
+	int* result;
+
+	int i;
+
+	i = 0;
+	
+	tokens=(char*)malloc(100);
+
+	memset(tokens, 0, 100);
+
+	result=(int*)malloc(100);
+
+	memset(result, 0, 100);
+	
+	tokens = (char*)strtok(str, separator);
+
+	while (tokens != NULL) {
+
+		result[i] = atoi(tokens);
+
+        tokens = (char*)strtok(NULL, separator);
+
+		++i;
+
+	}
+
+	free(tokens);
+
+	return result;
+
+}
