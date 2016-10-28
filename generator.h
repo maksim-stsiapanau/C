@@ -119,10 +119,10 @@ char* get_control_num(int control_sum) {
 	char* control_number;
 	int i;
 
-	control_number = (char*)malloc(100);
-	memset(control_number,0,100);
-
 	if (control_sum < 100) {
+		control_number = (char*)malloc(100);
+		memset(control_number,0,100);
+
 		if (control_sum < 10) {
 			sprintf(control_number,"0%d",control_sum);
 		} else {
@@ -131,6 +131,8 @@ char* get_control_num(int control_sum) {
 	}
 
 	if (control_sum == 100 || control_sum == 101) {
+		control_number = (char*)malloc(100);
+		memset(control_number,0,100);
 		sprintf(control_number,"%d%d",0,0);
 	}
 
@@ -147,11 +149,15 @@ Generating snils
 snils generate_snils_control_number() {
 
 	int control_sum = 0, i;
-	char* control_number;
+	char* control_number, *buff;
 	snils sn;
 	char* first_three_number = generate_number(3);
 	char* second_three_number = generate_number(3);
 	char* third_three_number = generate_number(3);
+	char* first_three_number_temp = first_three_number;
+	char* second_three_number_temp = second_three_number;
+	char* third_three_number_temp = third_three_number;
+
 
 	sn.first_three_number = (char*)malloc(strlen(first_three_number) + 1);
 	memset(sn.first_three_number, 0, strlen(first_three_number) + 1);
@@ -166,12 +172,14 @@ snils generate_snils_control_number() {
 	strcpy(sn.third_three_number, third_three_number);
 
 	for (i=0; i<3; i++) {
-		control_sum += (*first_three_number - '0') * (9 - i);
-		control_sum += (*second_three_number - '0') * (6 - i);
-		control_sum += (*third_three_number - '0') * (3 - i);
-		first_three_number += 1;
-		second_three_number += 1;
-		third_three_number += 1;
+		control_sum += (*first_three_number_temp - '0') * (9 - i);
+		control_sum += (*second_three_number_temp - '0') * (6 - i);
+		control_sum += (*third_three_number_temp - '0') * (3 - i);
+		if (i < 2) {
+			first_three_number_temp++;
+			second_three_number_temp++;
+			third_three_number_temp++;
+		}
 	}
 
 	control_number = get_control_num(control_sum);
@@ -184,6 +192,11 @@ snils generate_snils_control_number() {
 	free(second_three_number);
 	free(third_three_number);
 	free(control_number);
+
+	first_three_number = NULL;
+	second_three_number = NULL;
+	third_three_number = NULL;
+	control_number = NULL;
 
 	return sn;
 }
@@ -265,7 +278,7 @@ char* generate_inn_physics()
 }
 
 
-// Get date of birth day
+// Get date of birth day exclude 1981
 char* generate_dob() {
 
 	char* result_year;
